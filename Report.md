@@ -19,11 +19,11 @@ Pandas, matplotlib.pyplot, and seaborn libraries were imported as pd, plt, and s
 df = pd.read_csv("https://raw.githubusercontent.com/QueenSekinah/COVID-19_project_grp_6/main/full_grouped%20-%20full_grouped.csv")
 
 # Checking for Missing Values
-if df.isnull().any().any():
-    print("Missing values:\n", df.isnull().sum())
+missing_values = df.isnull().sum()
+print("Missing values:\n", missing_values)
 
-# Grouping: Handling Missing Values (if any)
-# Note: Consider removing this section since there are no missing values
+#Remove rows with missing values
+
 df = df.dropna()
 ```
 
