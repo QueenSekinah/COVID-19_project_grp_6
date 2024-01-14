@@ -33,7 +33,7 @@ The dataset was grouped by countries, aggregating the total number of confirmed 
 
 ```python
 # Grouping by Country and Calculating Totals
-country_totals = df.groupby('Country/Region').agg({'Confirmed': 'sum', 'Deaths': 'sum', 'Recovered': 'sum'})
+country_totals = group_data.groupby('Country/Region').agg({'Confirmed': 'sum', 'Deaths': 'sum', 'Recovered': 'sum'})
 print("Total Cases, Deaths, and Recoveries by Country:\n", country_totals)
 ```
 
@@ -52,16 +52,15 @@ A pivot table was created to showcase the total number of confirmed cases, death
 
 ```python
 # Pivot Table: Confirmed Cases, Deaths, and Recoveries by Date and Country
-date_country_pivot = pd.pivot_table(df, values=['Confirmed', 'Deaths', 'Recovered'], index=['Date', 'Country/Region'], aggfunc='sum').reset_index()
-print(date_country_pivot)
+date_country_pivot = pd.pivot_table(group_data, values=['Confirmed', 'Deaths', 'Recovered'], index=['Date', 'Country/Region'], aggfunc='sum')
 ```
 
 Time series analysis was performed to observe the trends in the number of confirmed cases over time for each country, visualized through a line plot.
 
 ```python
 # Time Series Analysis: Confirmed Cases Over Time
-time_series_plot = df.pivot(index='Date', columns='Country/Region', values='Confirmed').plot(figsize=(12, 8))
-plt.title('Confirmed Cases Over Time (Cumulative)')
+time_series_plot = group_data.pivot(index='Date', columns='Country/Region', values='Confirmed').plot(figsize=(12, 8))
+plt.title('Confirmed Cases Over Time')
 plt.show()
 ```
 
@@ -71,9 +70,9 @@ A focused analysis on a specific country (e.g., the United States) was conducted
 
 ```python
 # Individual Country Analysis: Confirmed Cases Over Time for the United States
-specific_country_data = df[df['Country/Region'] == 'US'].sort_values(by='Date')
+specific_country_data = group_data[group_data['Country/Region'] == 'US']
 plt.plot(specific_country_data['Date'], specific_country_data['Confirmed'], label='US')
-plt.title('Confirmed Cases Over Time for the United States')
+plt.title('Confirmed Cases Over Time for US')
 plt.xlabel('Date')
 plt.ylabel('Confirmed Cases')
 plt.legend()
@@ -87,8 +86,8 @@ A bar chart was utilized to compare the number of confirmed cases among differen
 ```python
 # Cross-Country Comparison: Comparison of COVID-19 Among Countries
 comparison_plot = country_totals.plot(kind='bar', stacked=True, figsize=(12, 8))
-plt.title('Comparison of COVID-19 Among Countries')
-plt.xlabel('Countries')
+plt.title('Comparison of COVID-19 Cases Between Countries')
+plt.xlabel('Countries/Regions')
 plt.ylabel('Confirmed Cases')
 plt.show()
 ```
